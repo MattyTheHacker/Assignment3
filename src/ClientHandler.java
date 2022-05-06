@@ -21,18 +21,19 @@ public class ClientHandler implements Runnable {
             BufferedReader inFromClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             PrintWriter outToClient = new PrintWriter(clientSocket.getOutputStream(), true);
             String clientMessage;
-            while (true) {
+            boolean listening = true;
+            while (listening) {
                 clientMessage = inFromClient.readLine();
                 if (clientMessage == null || clientMessage.equals("stop")) {
-                    break;
+                    System.out.println("Client " + clientId + " has disconnected");
+                    outToClient.println("Connection closed, Goodbye!");
+                    listening = false;
                 } else {
                     System.out.println("Client sent the artist name " + clientMessage);
                     int titlesNum = db.getTitles(clientMessage);
                     outToClient.println("Number of titles: " + titlesNum + " records found");
                 }
             }
-            System.out.println("Client " + clientId + " has disconnected");
-            outToClient.println("Connection closed, Goodbye!");
             inFromClient.close();
             outToClient.close();
             clientSocket.close();
