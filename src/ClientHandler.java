@@ -11,7 +11,7 @@ public class ClientHandler implements Runnable {
 
     //Constructor
     public ClientHandler(Socket socket, int clientId, Database db) {
-        clientSocket = socket;
+        this.clientSocket = socket;
         this.clientId = clientId;
         this.db = db;
     }
