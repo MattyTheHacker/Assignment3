@@ -14,8 +14,8 @@ public class Server {
                 Socket clientSocket = serverSocket.accept();
                 clientId++;
                 System.out.println("Client " + clientId + " connected with IP " + clientSocket.getInetAddress().getHostAddress());
-                ClientHandler clientHandler = new ClientHandler(clientSocket, clientId, db);
-                new Thread(clientHandler).start();
+                Thread client = new Thread(new ClientHandler(clientSocket, clientId, db));
+                client.start();
             }
         } else {
             System.out.println("DB connection fail, stopping.");

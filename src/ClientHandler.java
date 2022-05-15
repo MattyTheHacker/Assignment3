@@ -5,9 +5,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ClientHandler implements Runnable {
-    final Database db;
-    final Socket clientSocket;
-    final int clientId;
+    private final Database db;
+    private final Socket clientSocket;
+    private final int clientId;
 
     //Constructor
     public ClientHandler(Socket socket, int clientId, Database db) {
